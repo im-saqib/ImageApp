@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { getPosts } from "./actions/posts.js";
 
 import Posts from "./components/Posts/Posts.js";
 import Form from "./components/Form/Form.js";
@@ -9,6 +13,13 @@ import useStyles from "./styles";
 
 export default function App() {
   const classes = useStyles();
+  // Redux
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // useEffect tells React that your component needs to do something after render
+    dispatch(getPosts());
+  }, [dispatch]);
+
   return (
     <div>
       <Container maxidth='lg'>
@@ -23,14 +34,14 @@ export default function App() {
             width='60'
           />
         </AppBar>
-        <Grow in='true'>
+        <Grow in>
           {/* Simple Animation */}
           <Container>
             <Grid
               container
               justify='space-between'
               alignItems='stretch'
-              spacing='3'
+              spacing={3}
             >
               <Grid item xs={12} sm={7}>
                 {/* 12 Whole Screen on Small devices 7 little bit more than half screen */}

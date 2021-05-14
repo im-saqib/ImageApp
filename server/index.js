@@ -1,23 +1,22 @@
-// var dot = require("dotenv").config();
 import {} from "dotenv/config";
+import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import cors from "cors";
 
 // Routes //
 import postRoutes from "./routes/posts.js";
 
 const app = express();
 
-// Loading Routes //
-app.use("/posts", postRoutes);
-
 // BodyParser //
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-app.use(cors);
+app.use(cors());
+
+// Loading Routes (Must be loaded after cors) //
+app.use("/posts", postRoutes);
 
 const options = {
   useNewUrlParser: true,
@@ -33,10 +32,11 @@ const options = {
 //302
 const url = process.env.CONNECTION_URL;
 const PORT = process.env.PORT;
+
 mongoose
   .connect(url, options)
   .then(() =>
-    app.listen(PORT || 3000, () =>
+    app.listen(PORT || 5000, () =>
       console.log("Server is running on PORT: ", { PORT })
     )
   )
