@@ -16,7 +16,6 @@ export default function App() {
   // Redux
   const dispatch = useDispatch();
   useEffect(() => {
-    // useEffect tells React that your component needs to do something after render
     dispatch(getPosts());
   }, [dispatch]);
 
@@ -35,7 +34,6 @@ export default function App() {
           />
         </AppBar>
         <Grow in>
-          {/* Simple Animation */}
           <Container>
             <Grid
               container
@@ -44,7 +42,6 @@ export default function App() {
               spacing={3}
             >
               <Grid item xs={12} sm={7}>
-                {/* 12 Whole Screen on Small devices 7 little bit more than half screen */}
                 <Posts />
               </Grid>
               <Grid item xs={12} sm={4}>
