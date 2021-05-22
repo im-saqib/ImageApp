@@ -14,9 +14,12 @@ import moment from "moment";
 
 import useStyles from "./Styles";
 
-const Post = ({ post }) => {
-  const classes = useStyles();
+import { useDispatch } from "react-redux";
 
+import { deletePost } from "../../../actions/posts";
+const Post = ({ post, setCurrentId }) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -31,7 +34,11 @@ const Post = ({ post }) => {
         </Typography>
       </div>
       <div className={classes.overlay2}>
-        <Button style={{ color: "white" }} size='small' onClick={() => {}}>
+        <Button
+          style={{ color: "white" }}
+          size='small'
+          onClick={() => setCurrentId(post._id)}
+        >
           <MoreHorizIcon fontSize='default' />
         </Button>
       </div>
@@ -57,7 +64,11 @@ const Post = ({ post }) => {
         <Button size='small' color='primary' onClick={() => {}}>
           <ThumbUpAltIcon fontSize='small' /> Like {post.likeCount}{" "}
         </Button>
-        <Button size='small' color='primary' onClick={() => {}}>
+        <Button
+          size='small'
+          color='primary'
+          onClick={() => dispatch(deletePost(post._id))}
+        >
           <DeleteIcon fontSize='small' /> Delete
         </Button>
       </CardActions>
